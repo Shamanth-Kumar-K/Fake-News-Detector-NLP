@@ -4,7 +4,16 @@ import numpy as np
 import pickle
 import re
 import string
+import nltk
+
+# Download required NLTK resources
+nltk.download('punkt')
+nltk.download('stopwords')
+
 from nltk import tokenize
+
+# App version
+st.caption("📰 Fake News Detection App — v1.0.1")
 
 # Load the saved models and vectorizer
 with open('logistic_regression.pkl', 'rb') as f:
@@ -25,18 +34,18 @@ with open('tfidf_vectorizer.pkl', 'rb') as f:
 # Preprocessing function
 def wordopt(text):
     text = text.lower()
-    text = re.sub('\[.*?\]', '', text)
-    text = re.sub("\\W"," ",text)
-    text = re.sub('https?://\S+|www\.\S+', '', text)
-    text = re.sub('<.*?>+', '', text)
-    text = re.sub('[%s]' % re.escape(string.punctuation), '', text)
-    text = re.sub('\n', '', text)
-    text = re.sub('\w*\d\w*', '', text)
+    text = re.sub(r'\[.*?\]', '', text)
+    text = re.sub(r"\\W", " ", text)
+    text = re.sub(r'https?://\S+|www\.\S+', '', text)
+    text = re.sub(r'<.*?>+', '', text)
+    text = re.sub(rf"[{re.escape(string.punctuation)}]", '', text)
+    text = re.sub(r'\n', '', text)
+    text = re.sub(r'\w*\d\w*', '', text)
     return text
 
 # Function to predict news authenticity
 def predict_news(news):
-    testing_news = {"text":[news]}
+    testing_news = {"text": [news]}
     new_def_test = pd.DataFrame(testing_news)
     new_def_test["text"] = new_def_test["text"].apply(wordopt)
     new_x_test = new_def_test["text"]
@@ -53,17 +62,17 @@ def predict_news(news):
     }
 
 # Streamlit app
-st.title("Fake News Detection")
+st.title("📰 Fake News Detection")
 st.write("Enter the news text below to check its authenticity:")
 
 news_text = st.text_area("News Text", "")
 
 if st.button("Predict"):
-    if news_text:
+    if news_text.strip():
         predictions = predict_news(news_text)
         st.subheader("Predictions:")
         for model, prediction in predictions.items():
-            result = "Fake News" if prediction == 0 else "Real News"
-            st.write(f"{model}: {result}")
+            result = "✅ Real News" if prediction == 1 else "🚨 Fake News"
+            st.write(f"**{model}**: {result}")
     else:
-        st.warning("Please enter some news text.")
+        st.warning("⚠️ Please enter some news text before predicting.")
