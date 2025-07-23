@@ -1,20 +1,12 @@
-import os
-import subprocess
 import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
 import re
 import string
-
-# Ensure nltk is installed
-try:
-    import nltk
-except ModuleNotFoundError:
-    subprocess.check_call(["pip", "install", "nltk"])
-    import nltk
-
+import nltk
 from nltk import tokenize
+
 
 # Download required NLTK resources
 nltk.download('punkt')
