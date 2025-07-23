@@ -1,11 +1,11 @@
+import os
+import subprocess
 import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
 import re
 import string
-import os
-import subprocess
 
 # Ensure nltk is installed
 try:
@@ -14,12 +14,11 @@ except ModuleNotFoundError:
     subprocess.check_call(["pip", "install", "nltk"])
     import nltk
 
+from nltk import tokenize
 
 # Download required NLTK resources
 nltk.download('punkt')
 nltk.download('stopwords')
-
-from nltk import tokenize
 
 # App version
 st.caption("Fake News Detection App — v1.0.1")
