@@ -4,7 +4,16 @@ import numpy as np
 import pickle
 import re
 import string
-import nltk
+import os
+import subprocess
+
+# Ensure nltk is installed
+try:
+    import nltk
+except ModuleNotFoundError:
+    subprocess.check_call(["pip", "install", "nltk"])
+    import nltk
+
 
 # Download required NLTK resources
 nltk.download('punkt')
@@ -13,7 +22,7 @@ nltk.download('stopwords')
 from nltk import tokenize
 
 # App version
-st.caption("📰 Fake News Detection App — v1.0.1")
+st.caption("Fake News Detection App — v1.0.1")
 
 # Load the saved models and vectorizer
 with open('logistic_regression.pkl', 'rb') as f:
@@ -72,7 +81,7 @@ if st.button("Predict"):
         predictions = predict_news(news_text)
         st.subheader("Predictions:")
         for model, prediction in predictions.items():
-            result = "✅ Real News" if prediction == 1 else "🚨 Fake News"
+            result = "Real News" if prediction == 1 else "Fake News"
             st.write(f"**{model}**: {result}")
     else:
-        st.warning("⚠️ Please enter some news text before predicting.")
+        st.warning("Please enter some news text before predicting.")
