@@ -10,7 +10,7 @@ A machine learning-based web application to detect whether a given news statemen
 
 - 🔍 Built using NLP and scikit-learn
 - 🧠 Trained and evaluated 4 ML models:
-  - Logistic Regression ✅ *(Selected for deployment)*
+  - Logistic Regression 
   - Random Forest
   - Support Vector Machine (SVM)
   - Gradient Boosting
