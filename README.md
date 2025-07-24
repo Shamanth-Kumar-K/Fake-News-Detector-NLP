@@ -23,7 +23,7 @@ A machine learning-based web application to detect whether a given news statemen
 
 1. User enters a news headline or content.
 2. Text is preprocessed and transformed using TF-IDF.
-3. The selected model (Logistic Regression) predicts whether it's **FAKE** or **REAL**.
+3. The models predicts whether it's **FAKE** or **REAL**.
 
 ---
 
@@ -42,7 +42,6 @@ A machine learning-based web application to detect whether a given news statemen
 - `app.py`: Streamlit frontend
 - `.pkl files `: Trained Logistic Regression model
 - `requirements.txt`: Python dependencies
-- `.streamlit/config.toml`: Streamlit config
 
 ---
 
